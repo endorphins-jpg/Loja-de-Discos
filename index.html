@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Loja de Discos</title>
+</head>
+<body>
+    <div id="app">
+        <nav>
+            <h1>Loja de Discos</h1>
+            <div id='cart'>
+                <button @click='show_cart = !show_cart'>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                    </svg>
+                </button>
+                <span id='total_cart'>({{ cart.length }})</span>
+                <div class='dropdown_list' v-if='show_cart'>
+                    <ul>
+                        <li v-for='(album) in cart' :key='album.id'>
+                            <img :src='album.cover' :alt='(album.title)' style='max-width: 100px;'></img>
+                            <p class='album_title'>{{ album.title }}</p>
+                            <p class='album_artist'>{{ album.artist }}</p>
+                            <p class='album_price'>{{ album.price }}</p>
+                            <button id='cart_sub'>
+                                <a href='#' v-on:click.prevent='sub_cart(album)' v-if='album.quantity > 1'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                                        <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                </a>
+                                <a href='#'v-on:click.prevent='remove_cart(album)' v-else >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-dash" viewBox="0 0 16 16">
+                                        <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                </a>
+                            </button>
+
+                            <span>{{ album.quantity }}</span>
+
+                            <button id='cart_plus'>
+                                <a href='#' v-on:click.prevent='plus_cart(album)'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                            
+                            <button id='cart_remove'>
+                                <a href='#' v-on:click.prevent='remove_cart(album)'>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-x" viewBox="0 0 16 16">
+                                        <path d="M7.354 5.646a.5.5 0 1 0-.708.708L7.793 7.5 6.646 8.646a.5.5 0 1 0 .708.708L8.5 8.207l1.146 1.147a.5.5 0 0 0 .708-.708L9.207 7.5l1.147-1.146a.5.5 0 0 0-.708-.708L8.5 6.793 7.354 5.646z"/>
+                                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                </a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </nav>
+        
+        <hr>
+
+        <div id="hard_rock">
+            <p class='session_title'>Hard Rock</p>
+            <ul>
+                <li v-for='(album) in albums_hr' :key='album.id'>
+                    <img :src='album.cover' :alt='(album.title)' style='max-width: 250px;'></img>
+                    <p class='album_title'>{{ album.title }}</p>
+                    <p class='album_artist'>{{ album.artist }}</p>
+                    <p class='album_price'>{{ album.price }}</p>
+
+                    <a href='#' 
+                    v-on:click.prevent='add_cart(album)'
+                    v-if='!verify_cart(album)'>
+                    Comprar</a>
+
+                    <a href='#' 
+                    v-on:click.prevent='plus_cart(album)'
+                    v-else='!verify_cart(album)'>
+                    Comprar</a>
+
+                </li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <div id="black_metal">
+            <p class='session_title'>Black Metal</p>
+            <ul>
+                <li v-for='(album, index) in albums_bm' :key='index'>
+                    <img :src='album.cover' :alt='album.title' style='max-width: 250px;'></img>
+                    <p class='album_title'>{{ album.title }}</p>
+                    <p class='album_artist'>{{ album.artist }}</p>
+                    <p class='album_price'>{{ album.price }}</p>
+                    <a href='#' 
+                    v-on:click.prevent='add_cart(album)'
+                    v-if='!verify_cart(album)'>
+                    Comprar</a>
+
+                    <a href='#' 
+                    v-on:click.prevent='plus_cart(album)'
+                    v-else='!verify_cart(album)'>
+                    Comprar</a>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
