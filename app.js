@@ -74,7 +74,13 @@ const app = {
                 return album != product
             })
         },
+        cart_quantity(){
+            
+        }
+        
     },
+    computed: {
+    }
 }
 
 Vue.createApp(app).mount('#app')
