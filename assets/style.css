@@ -1,3 +1,5 @@
+
+
 #app ul {
     list-style-position: inside;
     padding-left: 0;
@@ -15,14 +17,7 @@
     display: inline-flex;
     flex-direction: row;
 }
-.dropbtn {
-    background-color: #414141;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
+
 .dropbtn:hover{
     background-color: #505050;
 }
@@ -33,15 +28,15 @@
 .dropdown_body {
     display: none;
     position: absolute;
-    width: 275px;
+    width: 265px;
     height: 450px;
     z-index: 1;
     right: 0px;
     background-color: white;
     overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 0 0 1em black;
     text-align: center;
-    
 }
 .dropdown_body a {
     color: white;
@@ -57,3 +52,16 @@
     border-color: #6C757D;
 }
 .show {display:block;}
+
+#hard_rock, #black_metal{
+    text-align: center;
+}
+#hard_rock h2, #black_metal h2{
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    font-family: 'Special Elite', cursive;
+}
+.navbar-brand{
+    font-family: 'Special Elite', cursive;
+}

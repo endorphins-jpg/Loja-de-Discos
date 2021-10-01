@@ -10,18 +10,22 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+ 
     <title>Loja de Discos</title>
 </head>
 <body>
 <div id="app">
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <img :src='logo' class="d-inline-block align-text-top">
-            <a class="navbar-brand" href="index.html">Loja de Discos</a>
+            <a class="navbar-brand" href="index.html">
+                <img :src='logo' class="d-inline-block">
+                Loja de Discos</a>
             <div class="dropdown_cart">
-                <button onclick="dd_func()" class="dropbtn">
+                <button onclick="dd_func()" class="btn btn-dark">
                     <i class="bi bi-cart-fill"></i>
                     <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" v-if='cart.length > 0'></span>
                 </button> 
@@ -32,7 +36,7 @@
                             <div class='card-body'>
                                 <h5 class='card-title'>{{ album.title }}</h5>
                                 <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                                <p class='album_price'>{{ album.total.toFixed(2) }}</p>
+                                <p class='album_price'>R$ {{ album.total.toFixed(2) }}</p>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-secondary">
                                         <a href='#' v-on:click.prevent='sub_cart(album)' v-if='album.quantity > 1'>
@@ -57,7 +61,7 @@
                             </div>
                         </li>
                     </ul>
-                    <span v-if='cart.length > 1'>{{ total_cart.toFixed(2) }}</span>
+                    <span v-if='cart.length > 0'>Total da compra: R$ {{ total_cart.toFixed(2) }}</span>
                     <span v-else>Ops, não há nada aqui! <br> Adicione coisas ao seu carrinho em "Comprar"!</span>
                 </div>
             </div>
@@ -73,10 +77,11 @@
                 <div class="card-body">
                     <h5 class='card-title'>{{ album.title }}</h5>
                     <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                    <p class='album_price'>{{ album.price.toFixed(2) }}</p>
+                    <p class='album_price'>R$ {{ album.price.toFixed(2) }}</p>
 
                     <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
-                    Comprar</a>
+                    Comprar
+                    </a>
 
                     <a href='#' v-on:click.prevent='plus_cart(album)' v-else='!verify_cart(album)' class="btn btn-dark">
                     Comprar</a>
@@ -96,7 +101,7 @@
                 <div class="card-body">
                     <h5 class='card-title'>{{ album.title }}</h5>
                     <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                    <p class='album_price'>{{ album.price.toFixed(2) }}</p>
+                    <p class='album_price'>R$ {{ album.price.toFixed(2) }}</p>
 
                     <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
                     Comprar</a>
@@ -119,7 +124,7 @@
     }
 
     window.onclick = function(event) {
-        if (!event.target.matches('.dropbtn')) {
+        if (!event.target.matches('.btn btn-dark')) {
             var dropdowns = document.getElementsByClassName("dropdown_bod");
             var i;
             for (i = 0; i < dropdowns.length; i++) {
