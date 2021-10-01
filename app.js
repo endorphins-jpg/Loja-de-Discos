@@ -12,7 +12,7 @@ const app = {
                 }, {
                     title: 'Appetite For Destruction',
                     ano: 1989,
-                    astist: "Guns 'n Roses",
+                    artist: "Guns 'n Roses",
                     cover: './assets/images/appetite for destruction.jpeg',
                     quantity: 0,
                     price: 60.00
@@ -36,7 +36,7 @@ const app = {
                 }, {
                     title: 'Black Metal',
                     ano: 1982,
-                    astist: 'Venom',
+                    artist: 'Venom',
                     cover: './assets/images/black metal.jpeg',
                     quantity: 0,
                     price: 35.00
@@ -49,9 +49,10 @@ const app = {
                     price: 30.00
                 },
             ],
+            logo: './assets/images/logo1.png',
             cart: [
             ],
-            show_cart: false
+            show_cart: false,
         }
     },
     methods: {
