@@ -33,14 +33,15 @@
 .dropdown_body {
     display: none;
     position: absolute;
-    width: 265px;
+    width: 275px;
     height: 450px;
     z-index: 1;
     right: 0px;
     background-color: white;
-    overflow: auto;
+    overflow-y: auto;
     box-shadow: 0 0 1em black;
     text-align: center;
+    
 }
 .dropdown_body a {
     color: white;

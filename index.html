@@ -32,7 +32,7 @@
                             <div class='card-body'>
                                 <h5 class='card-title'>{{ album.title }}</h5>
                                 <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                                <p class='album_price'>{{ album.total }}</p>
+                                <p class='album_price'>{{ album.total.toFixed(2) }}</p>
                                 <div class="btn-group" role="group">
                                     <button class="btn btn-secondary">
                                         <a href='#' v-on:click.prevent='sub_cart(album)' v-if='album.quantity > 1'>
@@ -57,7 +57,8 @@
                             </div>
                         </li>
                     </ul>
-                    <span>Total Price</span>
+                    <span v-if='cart.length > 1'>{{ total_cart.toFixed(2) }}</span>
+                    <span v-else>Ops, não há nada aqui! <br> Adicione coisas ao seu carrinho em "Comprar"!</span>
                 </div>
             </div>
         </div>
@@ -72,7 +73,7 @@
                 <div class="card-body">
                     <h5 class='card-title'>{{ album.title }}</h5>
                     <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                    <p class='album_price'>{{ album.price }}</p>
+                    <p class='album_price'>{{ album.price.toFixed(2) }}</p>
 
                     <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
                     Comprar</a>
@@ -95,7 +96,7 @@
                 <div class="card-body">
                     <h5 class='card-title'>{{ album.title }}</h5>
                     <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                    <p class='album_price'>{{ album.price }}</p>
+                    <p class='album_price'>{{ album.price.toFixed(2) }}</p>
 
                     <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
                     Comprar</a>

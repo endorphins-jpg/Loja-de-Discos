@@ -4,7 +4,6 @@ const app = {
             albums_hr: [
                 {
                     title: 'Dynasty',
-                    ano: 1979,
                     artist: 'Kiss',
                     cover: './assets/images/dynasty.jpg',
                     quantity: 0,
@@ -12,7 +11,6 @@ const app = {
                     total: 65.00
                 }, {
                     title: 'Appetite For Destruction',
-                    ano: 1989,
                     artist: "Guns 'n Roses",
                     cover: './assets/images/appetite for destruction.jpeg',
                     quantity: 0,
@@ -20,7 +18,6 @@ const app = {
                     total: 60.00
                 },{
                     title: 'Toxicity',
-                    ano: 2001,
                     artist: 'System Of a Down',
                     cover: './assets/images/toxicity.jpg',
                     quantity: 0,
@@ -31,7 +28,6 @@ const app = {
             albums_bm: [
                 {
                     title: 'Deathcrush',
-                    ano: 1987,
                     artist: 'Mayhem',
                     cover: './assets/images/deathcrush.jpeg',
                     quantity: 0,
@@ -39,7 +35,6 @@ const app = {
                     total: 45.00
                 }, {
                     title: 'Black Metal',
-                    ano: 1982,
                     artist: 'Venom',
                     cover: './assets/images/black metal.jpeg',
                     quantity: 0,
@@ -47,7 +42,6 @@ const app = {
                     total: 35.00
                 },{
                     title: 'I.N.R.I.',
-                    ano: 1987,
                     artist: 'Sarcófago',
                     cover: './assets/images/INRI.jpeg',
                     quantity: 0,
@@ -55,10 +49,8 @@ const app = {
                     total: 30.00
                 },
             ],
-            logo: './assets/images/logo1.png',
+            logo: './assets/images/logo.png',
             cart: [
-            ],
-            cart_each_price:[
             ],
         }
     },
@@ -72,7 +64,7 @@ const app = {
         },
         plus_cart(album){
             album.quantity ++
-            album.total = (album.price * album.quantity)
+            album.total = album.price * album.quantity
         },
         sub_cart(album){
             album.quantity --
@@ -87,6 +79,10 @@ const app = {
         },
     },
     computed: {
+        total_cart(){
+            const total = this.cart.reduce((a, b) => a + b.total, 0)
+            return total
+        }
     }
 }
 
