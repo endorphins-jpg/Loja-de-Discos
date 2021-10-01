@@ -7,148 +7,129 @@
 
     <link href="./assets/style.css" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <title>Loja de Discos</title>
 </head>
 <body>
-    <div id="app">
+<div id="app">
 
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container-fluid">
-
-                <img :src='logo' class="d-inline-block align-text-top">
-                <a class="navbar-brand" href="index.html">Loja de Discos</a>
-
-                <div class="dropdown_cart">
-                    <button onclick="myFunction()" class="dropbtn">
-                        <i class="bi bi-cart-fill"></i>
-                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" 
-                        v-if='cart.length > 0'>
-                        !
-                        </span>
-                    </button>
-                    
-                    <div id="myDropdown" class="dropdown-content">
-                        <ul>
-                                <li v-for='(album) in cart' :key='album.id'>
-                                    <img :src='album.cover' :alt='(album.title)' style='max-width: 100px;'></img>
-                                    <p class='album_title'>{{ album.title }}</p>
-                                    <p class='album_artist'>{{ album.artist }}</p>
-                                    <p class='album_price'>{{ album.price }}</p>
-            
-                                    <button class="btn btn-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <img :src='logo' class="d-inline-block align-text-top">
+            <a class="navbar-brand" href="index.html">Loja de Discos</a>
+            <div class="dropdown_cart">
+                <button onclick="dd_func()" class="dropbtn">
+                    <i class="bi bi-cart-fill"></i>
+                    <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle" v-if='cart.length > 0'></span>
+                </button> 
+                <div id="cart_dropdown" class="dropdown_body">
+                    <ul>
+                        <li v-for='(album) in cart' :key='album.id' class='card text-center bg-white' id='card_cart'>
+                            <img :src='album.cover' :alt='(album.title)' class='card-img-top'></img>
+                            <div class='card-body'>
+                                <h5 class='card-title'>{{ album.title }}</h5>
+                                <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
+                                <p class='album_price'>{{ album.total }}</p>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-secondary">
                                         <a href='#' v-on:click.prevent='sub_cart(album)' v-if='album.quantity > 1'>
                                             <i class="bi bi-cart-dash"></i>
-                                            </a>
+                                        </a>
                                         <a href='#'v-on:click.prevent='remove_cart(album)' v-else >
                                             <i class="bi bi-cart-dash"></i>
                                         </a>
                                     </button>
-            
-                                    <span>{{ album.quantity }}</span>
-            
-                                    <button class="btn btn-light">
+                                    <span id ='product_count'class="btn btn-secondary">{{ album.quantity }}</span>
+                                    <button class="btn btn-secondary">
                                         <a href='#' v-on:click.prevent='plus_cart(album)'>
                                             <i class="bi bi-cart-plus"></i>
                                         </a>
                                     </button>
-            
-                                    <button class="btn btn-light">
+                                    <button class="btn btn-secondary">
                                         <a href='#' v-on:click.prevent='remove_cart(album)'>
                                             <i class="bi bi-cart-x"></i>
                                         </a>
                                     </button>
-                                </li>
-                        </ul>
-                    </div>
-                    
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <span>Total Price</span>
                 </div>
             </div>
-        </nav>
+        </div>
+    </nav>
             
-        <div id="hard_rock">
-            <h2 class='session_title'>Hard Rock</h2>
-            <ul class='products'>
-                <li v-for='(album) in albums_hr' :key='album.id' class='card text-center bg-white'>
-                    <img :src='album.cover' :alt='(album.title)' class='card-img-top'></img>
-                    <div class="card-body">
-                        <h5 class='card-title'>{{ album.title }}</h5>
-                        <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                        <p class='album_price'>{{ album.price }}</p>
+    <div id="hard_rock">
+        <h2 class='session_title'>Hard Rock</h2>
+        <ul class='products'>
+                
+            <li v-for='(album) in albums_hr' :key='album.id' class='card text-center bg-white'>
+                <img :src='album.cover' :alt='(album.title)' class='card-img-top'></img>
+                <div class="card-body">
+                    <h5 class='card-title'>{{ album.title }}</h5>
+                    <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
+                    <p class='album_price'>{{ album.price }}</p>
 
-                        <a href='#' 
-                        v-on:click.prevent='add_cart(album)'
-                        v-if='!verify_cart(album)'
-                        class="btn btn-dark">
-                        Comprar</a>
+                    <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
+                    Comprar</a>
 
-                        <a href='#' 
-                        v-on:click.prevent='plus_cart(album)'
-                        v-else='!verify_cart(album)'
-                        class="btn btn-dark">
-                        Comprar</a>
+                    <a href='#' v-on:click.prevent='plus_cart(album)' v-else='!verify_cart(album)' class="btn btn-dark">
+                    Comprar</a>
 
-                    </div>
-                </li>
-            </ul>
-        </div>
-        
-        <hr>
-
-        <div id="black_metal">
-            <h2 class='session_title'>Black Metal</h2>
-            <ul class='products'>
-                <li v-for='(album, index) in albums_bm' :key='album.id' class='card text-center bg-white'>
-                    <img :src='album.cover' :alt='(album.title)' class='card-img-top'></img>
-                    <div class="card-body">
-                        <h5 class='card-title'>{{ album.title }}</h5>
-                        <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
-                        <p class='album_price'>{{ album.price }}</p>
-
-                        <a href='#' 
-                        v-on:click.prevent='add_cart(album)'
-                        v-if='!verify_cart(album)'
-                        class="btn btn-dark">
-                        Comprar</a>
-
-                        <a href='#' 
-                        v-on:click.prevent='plus_cart(album)'
-                        v-else='!verify_cart(album)'
-                        class="btn btn-dark">
-                        Comprar</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-        
+                </div>
+            </li>
+        </ul>
     </div>
+        
+    <hr>
 
-    <script src="https://unpkg.com/vue@next"></script>
-    <script src="./app.js"></script>
+    <div id="black_metal">
+        <h2 class='session_title'>Black Metal</h2>
+        <ul class='products'>
+            <li v-for='(album, index) in albums_bm' :key='album.id' class='card text-center bg-white'>
+                <img :src='album.cover' :alt='(album.title)' class='card-img-top'></img>
+                <div class="card-body">
+                    <h5 class='card-title'>{{ album.title }}</h5>
+                    <h6 class='card-subtitle mb-2 text-muted'>{{ album.artist }}</h6>
+                    <p class='album_price'>{{ album.price }}</p>
 
-    <script>
-        /* When the user clicks on the button,
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-        document.getElementById("myDropdown").classList.toggle("show");
-        }
+                    <a href='#' v-on:click.prevent='add_cart(album)' v-if='!verify_cart(album)' class="btn btn-dark">
+                    Comprar</a>
 
-        // Close the dropdown menu if the user clicks outside of it
-        window.onclick = function(event) {
+                    <a href='#' v-on:click.prevent='plus_cart(album)' v-else='!verify_cart(album)' class="btn btn-dark">
+                    Comprar</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+        
+</div>
+
+<script src="https://unpkg.com/vue@next"></script>
+<script src="./app.js"></script>
+
+<script>
+    function dd_func() {
+        document.getElementById("cart_dropdown").classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
         if (!event.target.matches('.dropbtn')) {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var dropdowns = document.getElementsByClassName("dropdown_bod");
             var i;
             for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
+                var openDropdown = dropdowns[i];
+                if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
             }
             }
         }
-        }
-      </script>
+    }
+</script>
 
 </body>
 </html>
